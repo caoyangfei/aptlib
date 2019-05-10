@@ -1,0 +1,66 @@
+
+  >gradle说明：
+  版本说明：<主版本号>.<子版本号>.<阶段版本号>.<日期版本号加希腊字母版本号> 。 如：1.1.2.170517_alpha 。
+       
+  1. Alpha版：开发版本。
+  2. Beta版：测试版本。 
+  3. RC版：测试通过版本。
+  4. Release版：正式版本，发布版本。
+  
+   >依赖library.gradle写法
+  
+   1.    apply from: "${rootProject.rootDir}/library.gradle"
+   2.    apply from: '../library.gradle'
+
+
+
+    execution
+
+    execution(* com.howtodoinjava.EmployeeManager.*( .. ))
+    匹配EmployeeManger接口中所有的方法
+    execution(* EmployeeManager.*( .. ))
+    当切面方法和EmployeeManager接口在相同的包下时，匹配EmployeeManger接口中所有的方法
+    execution(public * EmployeeManager.*(..))
+    当切面方法和EmployeeManager接口在相同的包下时，匹配EmployeeManager接口的所有public方法
+    execution(public EmployeeDTO EmployeeManager.*(..))
+    匹配EmployeeManager接口中权限为public并返回类型为EmployeeDTO的所有方法。
+    execution(public EmployeeDTO EmployeeManager.*(EmployeeDTO, ..))
+    匹配EmployeeManager接口中权限为public并返回类型为EmployeeDTO，第一个参数为EmployeeDTO类型的所有方法。
+    execution(public EmployeeDTO EmployeeManager.*(EmployeeDTO, Integer))
+    匹配EmployeeManager接口中权限为public、返回类型为EmployeeDTO，参数明确定义为EmployeeDTO,Integer的所有方法。
+    "execution(@com.xyz.service.BehaviorTrace * *(..))"
+    匹配注解为"@com.xyz.service.BehaviorTrace"，返回值为任意类型，任意包名下的任意方法。
+
+    within
+
+    任意连接点：包括类/对象初始化块,field,方法,构造器
+
+    within(com.xyz.service.*)
+    com.xyz.service包下任意连接点
+    within(com.xyz.service..*)
+    com.xyz.service包或子包下任意连接点
+    within(TestAspect)
+    TestAspect类下的任意连接点
+    within(@com.xyz.service.BehavioClass *)
+    持有com.xyz.service.BehavioClass注解的任意连接点
+
+    @Pointcut("within(@hugo.weaving.DebugLog *)")
+    public void withinAnnotatedClass() {} // @DebugLog 修饰的类、接口的 Join Point
+
+    // synthetic 是内部类编译后添加的修饰语，所以 !synthetic 表示非内部类的
+
+    @Pointcut("execution(!synthetic * *(..)) && withinAnnotatedClass()")
+    public void methodInsideAnnotatedType() {} // 执行 @DebugLog 修饰的类、接口中的方法，不包括内部类中方法
+
+
+    @Pointcut("execution(!synthetic *.new(..)) && withinAnnotatedClass()")
+    public void constructorInsideAnnotatedType() {} // 执行 @DebugLog 修饰的类中的构造函数，不包括内部类的构造函数
+
+    @Pointcut("execution(@hugo.weaving.DebugLog * *(..)) || methodInsideAnnotatedType()")
+    public void method() {} // 执行 @DebugLog 修饰的方法，或者 @DebugLog 修饰的类、接口中的方法
+
+    @Pointcut("execution(@hugo.weaving.DebugLog *.new(..)) || constructorInsideAnnotatedType()")
+    public void constructor() {} // 执行 @DebugLog 修饰的构造函数，或者 @DebugLog 修饰的类中的构造函数
+
+    官方文档：
+    https://www.eclipse.org/aspectj/doc/next/progguide/language-joinPoints.html

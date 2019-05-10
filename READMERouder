@@ -1,0 +1,46 @@
+
+  路由器说明：
+   apt包含：
+   1。annotation（注解 java）
+   2。api（编译代码所依赖接口 library）
+   3。complier （编译生成文件 java）
+   
+   项目中依赖使用方式：
+   根gradle中添加：
+    dependencies {
+           classpath 'com.android.tools.build:gradle:3.2.1'
+           classpath 'com.flyang.common:plugin:version'
+           // NOTE: Do not place your application dependencies here; they belong
+           // in the individual module build.gradle files
+       }
+   moudle中添加：
+   
+   import com.flyang.plugin.router.RouterPlugin
+   apply plugin: RouterPlugin
+   
+   apt中三个模块已经在gradle插件中依赖进去，修改三个模块版本方式：
+   根gradle中添加如下，变量名唯一。
+   ext {
+       apiVersion = "1.1.1.2019_beta_01"
+       annotationVersion = "1.1.1.2019_beta_04"
+       complierVersion = "1.1.1.2019_beta_01"
+   }
+
+
+使用：
+   1。拦截器
+   @Interceptor("AInterceptor")
+   public class AInterceptor implements RouteInterceptor {}
+   2。路由
+    @Route({"test"})
+    public class TestActivity extends AppCompatActivity {}
+    跳转：
+    Router.build("test").go(this);
+   3。参数
+   @InjectParam(key = "status")
+       String sts = "default";
+   @InjectParam
+   short test1;
+   初始化
+   Router.injectParams(this);
+   没有key时默认变量名

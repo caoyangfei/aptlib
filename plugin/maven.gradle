@@ -1,0 +1,37 @@
+//apply plugin: 'maven'
+
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.caoyangfei'
+
+//打包源代码
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+def version = "1.1.1.2019_beta_01"
+
+uploadArchives {
+
+    repositories {
+        mavenDeployer {
+
+            pom.version = version
+            pom.artifactId = "plugin"
+            pom.groupId = GROUP_ID
+
+            repository(url: uri('../repo'))
+
+//            repository(url: rootProject.getRepositoryUrl(version)) {
+//                // maven授权信息
+//                authentication(userName: NAME, password: PASSWORD)
+//            }
+        }
+    }
+}
+
+//注意⚠️:   插件修改后运行前需要重新发布: ./gradlew -p plugin clean build uploadArchives --info

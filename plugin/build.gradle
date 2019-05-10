@@ -1,0 +1,46 @@
+apply plugin: 'groovy'
+
+configurations {
+    deployerJars
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+//  解决build警告：编码GBK的不可映射字符
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+jar {
+    from {
+        zipTree(new File(project.projectDir.absolutePath + "/libs/aspectjtools.jar"))
+    }
+}
+
+dependencies {
+
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+
+    implementation gradleApi()//gradle sdk
+    implementation localGroovy()//groovy sdk
+    implementation 'com.android.tools.build:gradle:3.3.1'
+    implementation 'org.javassist:javassist:3.24.1-GA'
+    implementation 'org.aspectj:aspectjtools:1.9.2'
+    implementation 'com.android.tools.build:transform-api:2.0.0-deprecated-use-gradle-api'
+    implementation dep.gson
+
+    implementation files('libs/aspectjtools.jar')
+
+}
+
+//注意⚠️:   插件修改后运行前需要重新发布: ./gradlew -p plugin clean build uploadArchives --info
+
+apply from: 'maven.gradle'
