@@ -23,39 +23,90 @@
         </activity>
 
         <activity
-            android:name=".DemoForCacheableActivity"
+            android:name=".AopActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".DemoForAsyncActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="DemoForHookMethodActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="DemoForLogMethodActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="DemoForPrefsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="DemoForSafeActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="DemoForTraceActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="TestActivity"
+            android:name=".RouterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".aop.DemoForCacheableActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".aop.DemoForAsyncActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aop.DemoForHookMethodActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aop.DemoForLogMethodActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aop.DemoForPrefsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aop.DemoForSafeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aop.DemoForTraceActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".aop.TestActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".router.SchemeFilterActivity"
+            android:label="SchemeFilterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="filter"
+                    android:scheme="router" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".router.TestActivity"
+            android:label="TestActivity" />
+        <activity
+            android:name=".router.DynamicActivity"
+            android:label="DynamicActivity" />
+        <activity
+            android:name=".router.ForResultActivity"
+            android:label="ForResultActivity" />
+        <activity
+            android:name=".router.ImplicitActivity"
+            android:label="ImplicitActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="implicit"
+                    android:scheme="router" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".router.InterceptedActivity"
+            android:label="InterceptedActivity" />
+        <activity android:name=".router.WebActivity" />
     </application>
 
 </manifest>

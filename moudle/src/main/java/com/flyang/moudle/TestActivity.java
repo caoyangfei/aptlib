@@ -16,7 +16,7 @@ import com.flyang.annotation.apt.Router;
 import com.flyang.api.bind.FacadeBind;
 import com.flyang.api.router.IntentRouter;
 
-@Router({"moudleTest"})
+@Router({"moudleTest","router://filter/module1"})
 public class TestActivity extends Activity {
     @BindView("btn_click2")
     TextView btn_click12;

@@ -31,9 +31,9 @@ ext {
 //    ]
 
     //github 配置
-    apiVersion = "V1.1.1.2019_release_01"
-    annotationVersion = "V1.1.1.2019_release_01"
-    complierVersion = "V1.1.1.2019_release_01"
+    apiVersion = "V1.1.1.2019_release_02"
+    annotationVersion = "V1.1.1.2019_release_02"
+    complierVersion = "V1.1.1.2019_release_02"
     basicVersion = "V1.1.1.2019_release_01"
 
     dep = [

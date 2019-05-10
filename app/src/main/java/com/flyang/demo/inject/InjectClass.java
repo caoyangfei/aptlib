@@ -1,4 +1,4 @@
-package com.flyang.demo;
+package com.flyang.demo.inject;
 
 
 import com.flyang.annotation.inject.Inject;

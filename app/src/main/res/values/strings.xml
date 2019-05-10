@@ -1,2 +1,4 @@
 <resources>
+    <string name="go_to">go to %s</string>
+    <string name="dynamic_route">动态路由</string>
 </resources>

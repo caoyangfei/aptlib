@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_scheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/aop"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="aop" />
+        android:text="这个是使用隐式跳转,你需要在manifest中配置相关filter，详情看此activity的配置。" />
 
-    <Button
-        android:id="@+id/router"
+    <TextView
+        android:id="@+id/text_test"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="router" />
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

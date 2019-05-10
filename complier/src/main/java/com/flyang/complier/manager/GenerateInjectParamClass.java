@@ -7,7 +7,6 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
@@ -195,7 +194,7 @@ public class GenerateInjectParamClass implements GenerateClass {
             }
 
             TypeSpec typeSpec = TypeSpec.classBuilder(fileName)
-                    .addSuperinterface(ParameterizedTypeName.get(TypeUtil.ParamInjector, TypeName.get(parent.asType())))
+                    .addSuperinterface(TypeUtil.ParamInjector)
                     .addModifiers(Modifier.PUBLIC)
                     .addMethod(injectMethodBuilder.build())
                     .addJavadoc(CLASS_JAVA_DOC)

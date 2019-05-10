@@ -1,9 +1,12 @@
-package com.flyang.demo;
+package com.flyang.demo.aop;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.flyang.annotation.aop.Prefs;
+import com.flyang.annotation.apt.OnClick;
+import com.flyang.demo.R;
 
 
 /**
@@ -32,12 +35,8 @@ public class DemoForPrefsActivity extends Activity {
 
         return article;
     }
-//
-//    @OnClick(id={R.id.text})
-//    void clickText() {
-//
-//        AppPrefs appPrefs = AppPrefs.get(this);
-//        Article article = (Article) appPrefs.getObject("article");
-//        Toast.makeText(this, StringUtils.printObject(article),Toast.LENGTH_SHORT).show();
-//    }
+    @OnClick(value={"text"})
+    void clickText(View view) {
+
+    }
 }

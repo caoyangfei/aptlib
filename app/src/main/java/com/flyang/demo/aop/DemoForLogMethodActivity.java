@@ -1,4 +1,4 @@
-package com.flyang.demo;
+package com.flyang.demo.aop;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,10 +22,6 @@ public class DemoForLogMethodActivity extends Activity {
 
         initData2("test");
 
-        User u = new User();
-        u.name = "tony";
-        u.password = "123456";
-        initData3(u);
     }
 
     @LogMethod
@@ -38,11 +34,4 @@ public class DemoForLogMethodActivity extends Activity {
         return s;
     }
 
-    @LogMethod
-    private User initData3(User u) {
-
-        u.password = "abcdefg";
-
-        return u;
-    }
 }

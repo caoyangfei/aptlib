@@ -1,4 +1,4 @@
-package com.flyang.demo;
+package com.flyang.demo.router;
 
 import android.support.annotation.NonNull;
 import android.widget.Toast;
@@ -21,6 +21,6 @@ public class AInterceptor implements RouteInterceptor {
         Toast.makeText(chain.getContext(), String.format("Intercepted: {uri: %s, interceptor: %s}",
                 chain.getRequest().getUri().toString(), AInterceptor.class.getName()),
                 Toast.LENGTH_LONG).show();
-        return chain.process();
+        return chain.intercept();
     }
 }

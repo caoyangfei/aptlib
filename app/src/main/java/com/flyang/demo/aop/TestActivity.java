@@ -1,4 +1,4 @@
-package com.flyang.demo;
+package com.flyang.demo.aop;
 
 import android.Manifest;
 import android.app.Activity;
@@ -11,8 +11,8 @@ import com.flyang.annotation.aop.NeedPermission;
 import com.flyang.annotation.aop.PermissionCanceled;
 import com.flyang.annotation.aop.PermissionDenied;
 import com.flyang.annotation.apt.BindView;
-import com.flyang.annotation.apt.Router;
 import com.flyang.api.bind.FacadeBind;
+import com.flyang.demo.R;
 
 
 /**
@@ -21,11 +21,11 @@ import com.flyang.api.bind.FacadeBind;
  * @date 2019/4/15
  * ------------- Description -------------
  */
-@Router({"test", "http://example.com/user", "router://filter/test"})
 public class TestActivity extends Activity {
 
     @BindView("btn_click1")
     TextView btn_click12;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

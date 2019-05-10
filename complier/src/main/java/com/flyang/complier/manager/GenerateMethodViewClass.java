@@ -72,14 +72,15 @@ public class GenerateMethodViewClass implements GenerateClass {
             TypeElement typeElement = entry.getKey();
             Set<ViewModel> value = entry.getValue();
 
-            ClassName R = ClassName.get(processingEnvironment.getElementUtils().getPackageOf(typeElement).getQualifiedName().toString(), "R");
+            ClassName resources = ClassName.get("android.content.res", "Resources");
 
             //创建bindView方法
             MethodSpec.Builder bindViewMethod = MethodSpec.constructorBuilder()
                     .addModifiers(Modifier.PUBLIC)
                     .addParameter(TypeName.get(typeElement.asType()), "host")
                     .addParameter(VIEW, "source")
-                    .addStatement("this.target = host");
+                    .addStatement("this.target = host")
+                    .addStatement("$T resources=host.getResources()", resources);
 
             //创建unBindView方法
             MethodSpec.Builder unBindViewMethod = MethodSpec.methodBuilder("unBind")
@@ -90,7 +91,11 @@ public class GenerateMethodViewClass implements GenerateClass {
 
                 if (viewModel instanceof FieldViewModel) {
                     FieldViewModel fieldViewModel = (FieldViewModel) viewModel;
-                    bindViewMethod.addStatement("host.$N = (($T)host.findViewById($T.id.$N))", fieldViewModel.getSimpleName(), ClassName.get(fieldViewModel.getFieldType()), R, fieldViewModel.getFieldResId());
+
+                    //根据属性名获取id
+                    bindViewMethod.addStatement("host.$N = ($T)(host.findViewById(resources.getIdentifier($S, \"id\",host.getPackageName())))"
+                            , fieldViewModel.getSimpleName(), ClassName.get(fieldViewModel.getFieldType()), fieldViewModel.getFieldResId());
+
                     //解除绑定对象方法
                     unBindViewMethod.addStatement("target.$N = null", fieldViewModel.getSimpleName());
                 }
@@ -120,10 +125,10 @@ public class GenerateMethodViewClass implements GenerateClass {
                             callback.addMethod(callbackMethod.build());
                         }
                         if (!VIEW_TYPE.equals(targetType)) {
-                            bindViewMethod.addStatement("(($T)host.findViewById($T.id.$N)).$L($L)", bestGuess(targetType), R, id, listenerClass.setter(),
-                                    callback.build());
+                            bindViewMethod.addStatement("(($T)(host.findViewById(resources.getIdentifier($S, \"id\",host.getPackageName()))).$L($L)"
+                                    , bestGuess(targetType), id, listenerClass.setter(), callback.build());
                         } else {
-                            bindViewMethod.addStatement("host.findViewById($T.id.$N).$L($L)", R, id, listenerClass.setter(),
+                            bindViewMethod.addStatement("host.findViewById(resources.getIdentifier($S, \"id\",host.getPackageName())).$L($L)", id, listenerClass.setter(),
                                     callback.build());
                         }
                     }

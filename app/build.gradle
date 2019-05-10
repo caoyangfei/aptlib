@@ -38,4 +38,5 @@ dependencies {
     implementation project(':aop')
     implementation project(':moudle')
     implementation project(':moudle2')
+    implementation dep.basic
 }
