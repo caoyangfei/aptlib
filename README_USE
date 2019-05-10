@@ -1,0 +1,5 @@
+1，  根目录gradle：
+        maven {
+            url 'https://jitpack.io'
+        }
+2，   
