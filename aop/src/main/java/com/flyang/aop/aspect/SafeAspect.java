@@ -4,6 +4,7 @@ package com.flyang.aop.aspect;
 import com.flyang.annotation.aop.Safe;
 import com.flyang.basic.data.ObjectUtils;
 import com.flyang.basic.data.ReflectUtils;
+import com.flyang.basic.log.LogUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -46,9 +47,8 @@ public class SafeAspect {
         try {
             result = joinPoint.proceed();
         } catch (Throwable e) {
-
+            LogUtils.e(getStringFromException(e));
             String callBack = safe.callBack();
-
             if (ObjectUtils.isNotBlank(callBack)) {
                 try {
                     ReflectUtils.on(joinPoint.getTarget()).call(callBack);

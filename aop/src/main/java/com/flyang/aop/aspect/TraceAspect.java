@@ -1,9 +1,12 @@
 package com.flyang.aop.aspect;
 
 
+import android.annotation.SuppressLint;
+
 import com.flyang.annotation.aop.Trace;
 import com.flyang.aop.modle.StopWatch;
 import com.flyang.basic.data.ObjectUtils;
+import com.flyang.basic.log.LogUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,13 +15,12 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 
-
 /**
  * @author yangfei.cao
  * @ClassName aptlib_demo
  * @date 2019/3/28
  * ------------- Description -------------
- *
+ * <p>
  * 用于追踪某个方法花费的时间,可以用于性能调优的评判
  * 支持追踪匿名内部类中的方法
  */
@@ -29,7 +31,7 @@ public class TraceAspect {
 
     private static final String POINTCUT_CONSTRUCTOR = "execution(@com.flyang.annotation.aop.Trace *.new(..))";
 
-    private static final int ns = 1000*1000;
+    private static final int ns = 1000 * 1000;
 
     @Pointcut(POINTCUT_METHOD)
     public void methodAnnotatedWithTrace() {
@@ -44,7 +46,7 @@ public class TraceAspect {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 
         Trace trace = methodSignature.getMethod().getAnnotation(Trace.class);
-        if (trace!=null && !trace.enable()) {
+        if (trace != null && !trace.enable()) {
             return joinPoint.proceed();
         }
 
@@ -58,16 +60,16 @@ public class TraceAspect {
         if (ObjectUtils.isBlank(className)) {
             className = "Anonymous class";
         }
+        LogUtils.i(className, buildLogMessage(methodName, stopWatch.getElapsedTime()));
         return result;
     }
 
     /**
-     * Create a log message.
-     *
-     * @param methodName A string with the method name.
-     * @param methodDuration Duration of the method in milliseconds.
-     * @return A string representing message.
+     * @param methodName     方法名
+     * @param methodDuration 方法的持续时间（以毫秒为单位）
+     * @return
      */
+    @SuppressLint("DefaultLocale")
     private static String buildLogMessage(String methodName, long methodDuration) {
 
         if (methodDuration > 10 * ns) {
