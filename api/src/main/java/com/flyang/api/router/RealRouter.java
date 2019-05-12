@@ -19,7 +19,7 @@ import com.flyang.api.router.chain.interceptor.IntentValidator;
 import com.flyang.api.router.chain.interceptor.RouteInterceptor;
 import com.flyang.api.router.response.RouteResponse;
 import com.flyang.api.router.response.RouteStatus;
-import com.flyang.basic.log.LogUtils;
+import com.flyang.util.log.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

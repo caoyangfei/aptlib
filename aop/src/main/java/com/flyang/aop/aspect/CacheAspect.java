@@ -1,7 +1,7 @@
 package com.flyang.aop.aspect;
 
 import com.flyang.annotation.aop.Cacheable;
-import com.flyang.basic.cache.CacheMemoryUtils;
+import com.flyang.util.cache.CacheMemoryUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

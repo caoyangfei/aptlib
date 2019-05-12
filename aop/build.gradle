@@ -50,7 +50,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     implementation 'org.aspectj:aspectjrt:1.8.14'
     implementation dep.annotation
-    implementation dep.basic
+    implementation dep.util
 }
 
 //  解决build警告：编码GBK的不可映射字符

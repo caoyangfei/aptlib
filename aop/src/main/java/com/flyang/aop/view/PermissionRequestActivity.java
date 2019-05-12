@@ -9,7 +9,7 @@ import android.support.v4.app.ActivityCompat;
 
 import com.flyang.aop.R;
 import com.flyang.aop.modle.interf.IPermission;
-import com.flyang.basic.system.PermissionUtils;
+import com.flyang.util.system.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;

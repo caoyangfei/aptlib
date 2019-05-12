@@ -2,9 +2,9 @@ package com.flyang.aop.aspect;
 
 
 import com.flyang.annotation.aop.Safe;
-import com.flyang.basic.data.ObjectUtils;
-import com.flyang.basic.data.ReflectUtils;
-import com.flyang.basic.log.LogUtils;
+import com.flyang.util.data.ObjectUtils;
+import com.flyang.util.data.ReflectUtils;
+import com.flyang.util.log.LogUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

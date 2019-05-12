@@ -34,10 +34,12 @@ ext {
     apiVersion = "V1.1.1.2019_release_02"
     annotationVersion = "V1.1.1.2019_release_02"
     complierVersion = "V1.1.1.2019_release_02"
-    basicVersion = "V1.1.1.2019_release_01"
+    basicVersion = "V1.1.1.2019_release_02"
+    utilVersion = "V1.1.1.2019_release_02"
 
     dep = [
-            basic     : "com.github.caoyangfei:basiclib:$basicVersion",
+            util      : "com.github.caoyangfei.basiclib:util:$utilVersion",
+            basic     : "com.github.caoyangfei.basiclib:util:$basicVersion",
             annotation: "com.github.caoyangfei.aptlib:annotation:$annotationVersion",
             api       : "com.github.caoyangfei.aptlib:api:$apiVersion",
             complier  : "com.github.caoyangfei.aptlib:complier:$complierVersion",

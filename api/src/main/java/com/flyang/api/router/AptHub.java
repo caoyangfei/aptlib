@@ -5,7 +5,7 @@ import android.app.Fragment;
 
 import com.flyang.api.router.chain.interceptor.RouteInterceptor;
 import com.flyang.api.router.template.ParamInjector;
-import com.flyang.basic.log.LogUtils;
+import com.flyang.util.log.LogUtils;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

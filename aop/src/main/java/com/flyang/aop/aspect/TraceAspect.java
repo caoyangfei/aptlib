@@ -5,8 +5,8 @@ import android.annotation.SuppressLint;
 
 import com.flyang.annotation.aop.Trace;
 import com.flyang.aop.modle.StopWatch;
-import com.flyang.basic.data.ObjectUtils;
-import com.flyang.basic.log.LogUtils;
+import com.flyang.util.data.ObjectUtils;
+import com.flyang.util.log.LogUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

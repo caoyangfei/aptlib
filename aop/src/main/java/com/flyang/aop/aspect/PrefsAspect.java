@@ -1,7 +1,7 @@
 package com.flyang.aop.aspect;
 
 import com.flyang.annotation.aop.Prefs;
-import com.flyang.basic.data.SPStaticUtils;
+import com.flyang.util.data.SPStaticUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

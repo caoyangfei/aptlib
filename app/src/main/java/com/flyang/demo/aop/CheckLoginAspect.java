@@ -1,6 +1,7 @@
 package com.flyang.demo.aop;
 
-import com.flyang.basic.log.LogUtils;
+
+import com.flyang.util.log.LogUtils;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
