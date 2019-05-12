@@ -7,6 +7,8 @@ import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.initialization.dsl.ScriptHandler
+import org.gradle.api.plugins.ExtraPropertiesExtension
+
 /**
  * @author yangfei.cao
  * @ClassName RouterPlugin
@@ -17,9 +19,10 @@ import org.gradle.api.initialization.dsl.ScriptHandler
 class RouterPlugin implements Plugin<Project> {
     static final String APT_OPTION_NAME = "moduleName"
 
-    String apiVersion = "V1.1.1.2019_release_04"
-    String annotationVersion = "V1.1.1.2019_release_04"
-    String complierVersion = "V1.1.1.2019_release_04"
+    String apiVersion = "V1.1.1.2019_release_01"
+    String annotationVersion = "V1.1.1.2019_release_01"
+    String complierVersion = "V1.1.1.2019_release_01"
+    String aopVersion = "V1.1.1.2019_release_01"
 
     String androidBuildGradleVersion
 
@@ -70,38 +73,41 @@ class RouterPlugin implements Plugin<Project> {
         Project apiProject = project.rootProject.findProject("api")
         Project compilerProject = project.rootProject.findProject("complier")
         Project annotationProject = project.rootProject.findProject("annotation")
-        if (apiProject && compilerProject && annotationProject) {
+        Project aopProject = project.rootProject.findProject("aop")
+        if (apiProject && compilerProject && annotationProject && aopProject) {
             //本地
             project.dependencies.add(compileConf, apiProject)
             project.dependencies.add(compileConf, annotationProject)
+            project.dependencies.add(compileConf, aopProject)
             project.dependencies.add(aptConf, compilerProject)
-        }
-//        else {
-//            ExtraPropertiesExtension ext = project.rootProject.ext
-//            if (ext.has("apiVersion")) {
-//                apiVersion = ext.get("apiVersion")
-//            }
-//            if (ext.has("annotationVersion")) {
-//                annotationVersion = ext.get("annotationVersion")
-//            }
-//            if (ext.has("complierVersion")) {
-//                complierVersion = ext.get("complierVersion")
-//            }
-////            project.dependencies.add(compileConf,
-////                    "com.flyang.common:api:${apiVersion}")
-////            project.dependencies.add(compileConf,
-////                    "com.flyang.common:annotation:${annotationVersion}")
-////            project.dependencies.add(aptConf,
-////                    "com.flyang.common:complier:${complierVersion}")
-//
-//            //GitHub
+        } else {
+            ExtraPropertiesExtension ext = project.rootProject.ext
+            if (ext.has("apiVersion")) {
+                apiVersion = ext.get("apiVersion")
+            }
+            if (ext.has("annotationVersion")) {
+                annotationVersion = ext.get("annotationVersion")
+            }
+            if (ext.has("complierVersion")) {
+                complierVersion = ext.get("complierVersion")
+            }
 //            project.dependencies.add(compileConf,
-//                    "com.github.caoyangfei.aptlib:api:${apiVersion}")
+//                    "com.flyang.common:api:${apiVersion}")
 //            project.dependencies.add(compileConf,
-//                    "com.github.caoyangfei.aptlib:annotation:${annotationVersion}")
+//                    "com.flyang.common:annotation:${annotationVersion}")
 //            project.dependencies.add(aptConf,
-//                    "com.github.caoyangfei.aptlib:complier:${complierVersion}")
-//        }
+//                    "com.flyang.common:complier:${complierVersion}")
+
+            //GitHub
+            project.dependencies.add(compileConf,
+                    "com.github.caoyangfei.aptlib:api:${apiVersion}")
+            project.dependencies.add(compileConf,
+                    "com.github.caoyangfei.aptlib:annotation:${annotationVersion}")
+            project.dependencies.add(compileConf,
+                    "com.github.caoyangfei.aptlib:aop:${aopVersion}")
+            project.dependencies.add(aptConf,
+                    "com.github.caoyangfei.aptlib:complier:${complierVersion}")
+        }
 
         def android = project.extensions.findByName("android")
         if (android) {
