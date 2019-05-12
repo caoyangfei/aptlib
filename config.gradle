@@ -10,7 +10,7 @@ ext {
 
 
 //    annotationVersion = "V1.1.1.2019_release_04"
-    utilVersion = "V1.1.1.2019_release_02"
+    utilVersion = "V1.1.1.2019_release_01"
 
     dep = [
             util      : "com.github.caoyangfei.basiclib:util:$utilVersion",
