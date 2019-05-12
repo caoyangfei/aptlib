@@ -17,9 +17,9 @@ import org.gradle.api.initialization.dsl.ScriptHandler
 class RouterPlugin implements Plugin<Project> {
     static final String APT_OPTION_NAME = "moduleName"
 
-    String apiVersion = "1.1.1.2019_release_04"
-    String annotationVersion = "1.1.1.2019_release_04"
-    String complierVersion = "1.1.1.2019_release_04"
+    String apiVersion = "V1.1.1.2019_release_04"
+    String annotationVersion = "V1.1.1.2019_release_04"
+    String complierVersion = "V1.1.1.2019_release_04"
 
     String androidBuildGradleVersion
 
