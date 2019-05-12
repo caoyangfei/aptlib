@@ -19,10 +19,10 @@ import org.gradle.api.plugins.ExtraPropertiesExtension
 class RouterPlugin implements Plugin<Project> {
     static final String APT_OPTION_NAME = "moduleName"
 
-    String apiVersion = "V1.1.1.2019_release_01"
-    String annotationVersion = "V1.1.1.2019_release_01"
-    String complierVersion = "V1.1.1.2019_release_01"
-    String aopVersion = "V1.1.1.2019_release_01"
+    String apiVersion = "V1.1.1.2019_release_02"
+    String annotationVersion = "V1.1.1.2019_release_02"
+    String complierVersion = "V1.1.1.2019_release_02"
+    String aopVersion = "V1.1.1.2019_release_02"
 
     String androidBuildGradleVersion
 
@@ -89,8 +89,12 @@ class RouterPlugin implements Plugin<Project> {
                 annotationVersion = ext.get("annotationVersion")
             }
             if (ext.has("complierVersion")) {
+                aopVersion = ext.get("aopVersion")
+            }
+            if (ext.has("complierVersion")) {
                 complierVersion = ext.get("complierVersion")
             }
+
 //            project.dependencies.add(compileConf,
 //                    "com.flyang.common:api:${apiVersion}")
 //            project.dependencies.add(compileConf,
