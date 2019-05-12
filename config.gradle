@@ -9,7 +9,7 @@ ext {
     versionName = "1.1.1.2019_beta_01"
 
 
-    annotationVersion = "V1.1.1.2019_release_02"
+    annotationVersion = "V1.1.1.2019_release_04"
     utilVersion = "V1.1.1.2019_release_02"
 
     dep = [
