@@ -3,7 +3,7 @@ ext {
     app_name = "APT库"
     compileSdkVersion = 28
     buildToolsVersion = "26.0.2"
-    minSdkVersion = 19
+    minSdkVersion = 16
     targetSdkVersion = 28
     versionCode = 1
     versionName = "1.1.1.2019_beta_01"
