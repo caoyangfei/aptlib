@@ -88,7 +88,7 @@ class RouterPlugin implements Plugin<Project> {
             if (ext.has("annotationVersion")) {
                 annotationVersion = ext.get("annotationVersion")
             }
-            if (ext.has("complierVersion")) {
+            if (ext.has("aopVersion")) {
                 aopVersion = ext.get("aopVersion")
             }
             if (ext.has("complierVersion")) {
