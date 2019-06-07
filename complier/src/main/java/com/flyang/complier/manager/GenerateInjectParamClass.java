@@ -46,7 +46,7 @@ public class GenerateInjectParamClass implements GenerateClass {
         static final ClassName ParamInjector = ClassName.get("com.flyang.api.router.template", "ParamInjector");
     }
 
-    public static final String PARAM_CLASS_SUFFIX = "$$Router$$ParamInjector";
+    public static final String PARAM_CLASS_SUFFIX = "$$IntentRouter$$ParamInjector";
     public static final String METHOD_INJECT = "inject";
     public static final String CLASS_JAVA_DOC = "注解获取bundle传递数据\n{@link Router#injectParams(Object)}\n";
 
