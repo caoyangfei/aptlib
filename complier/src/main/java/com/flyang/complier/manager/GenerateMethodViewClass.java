@@ -73,6 +73,7 @@ public class GenerateMethodViewClass implements GenerateClass {
             Set<ViewModel> value = entry.getValue();
 
             ClassName resources = ClassName.get("android.content.res", "Resources");
+            ClassName applicationUtils = ClassName.get("com.flyang.util.app", "ApplicationUtils");
 
             //创建bindView方法
             MethodSpec.Builder bindViewMethod = MethodSpec.constructorBuilder()
@@ -80,7 +81,9 @@ public class GenerateMethodViewClass implements GenerateClass {
                     .addParameter(TypeName.get(typeElement.asType()), "host")
                     .addParameter(VIEW, "source")
                     .addStatement("this.target = host")
-                    .addStatement("$T resources=host.getResources()", resources);
+                    .addStatement("$T resources=$T.getApp().getResources()", resources, applicationUtils)
+                    .addStatement("$T packageName = $T.getApp().getPackageName()", String.class, applicationUtils);
+
 
             //创建unBindView方法
             MethodSpec.Builder unBindViewMethod = MethodSpec.methodBuilder("unBind")
@@ -93,7 +96,7 @@ public class GenerateMethodViewClass implements GenerateClass {
                     FieldViewModel fieldViewModel = (FieldViewModel) viewModel;
 
                     //根据属性名获取id
-                    bindViewMethod.addStatement("host.$N = ($T)(host.findViewById(resources.getIdentifier($S, \"id\",host.getPackageName())))"
+                    bindViewMethod.addStatement("host.$N = ($T)(source.findViewById(resources.getIdentifier($S, \"id\",packageName)))"
                             , fieldViewModel.getSimpleName(), ClassName.get(fieldViewModel.getFieldType()), fieldViewModel.getFieldResId());
 
                     //解除绑定对象方法
@@ -125,10 +128,10 @@ public class GenerateMethodViewClass implements GenerateClass {
                             callback.addMethod(callbackMethod.build());
                         }
                         if (!VIEW_TYPE.equals(targetType)) {
-                            bindViewMethod.addStatement("(($T)(host.findViewById(resources.getIdentifier($S, \"id\",host.getPackageName()))).$L($L)"
+                            bindViewMethod.addStatement("(($T)(source.findViewById(resources.getIdentifier($S, \"id\",packageName))).$L($L)"
                                     , bestGuess(targetType), id, listenerClass.setter(), callback.build());
                         } else {
-                            bindViewMethod.addStatement("host.findViewById(resources.getIdentifier($S, \"id\",host.getPackageName())).$L($L)", id, listenerClass.setter(),
+                            bindViewMethod.addStatement("source.findViewById(resources.getIdentifier($S, \"id\",packageName)).$L($L)", id, listenerClass.setter(),
                                     callback.build());
                         }
                     }
@@ -148,7 +151,8 @@ public class GenerateMethodViewClass implements GenerateClass {
             String packageName = getPackage(typeElement).getQualifiedName().toString();
 
             try {
-                JavaFile.builder(packageName, viewBinder.build()).build().writeTo(mFiler);
+                JavaFile.builder(packageName, viewBinder.build())
+                        .build().writeTo(mFiler);
             } catch (IOException e) {
                 e.printStackTrace();
             }

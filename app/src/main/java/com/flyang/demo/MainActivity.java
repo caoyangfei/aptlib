@@ -3,7 +3,9 @@ package com.flyang.demo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
+import com.flyang.annotation.apt.BindView;
 import com.flyang.annotation.apt.OnClick;
 import com.flyang.api.bind.FacadeBind;
 import com.flyang.api.router.IntentRouter;
@@ -15,6 +17,9 @@ import com.flyang.demo.inject.InjectToClass;
  */
 
 public class MainActivity extends Activity {
+
+    @BindView("aop")
+    Button aop;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
