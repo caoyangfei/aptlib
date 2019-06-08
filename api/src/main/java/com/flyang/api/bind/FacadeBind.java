@@ -1,6 +1,7 @@
 package com.flyang.api.bind;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,32 @@ public class FacadeBind {
     @UiThread
     public static UnBinder bind(@NonNull Activity target) {
         View sourceView = target.getWindow().getDecorView();
+        return createBinding(target, sourceView);
+    }
+
+    /**
+     * fragment
+     *
+     * @param target 目标
+     * @return
+     */
+    @NonNull
+    @UiThread
+    public static UnBinder bind(@NonNull android.support.v4.app.Fragment target) {
+        View sourceView = target.getView();
+        return createBinding(target, sourceView);
+    }
+
+    /**
+     * fragment
+     *
+     * @param target 目标
+     * @return
+     */
+    @NonNull
+    @UiThread
+    public static UnBinder bind(@NonNull Fragment target) {
+        View sourceView = target.getView();
         return createBinding(target, sourceView);
     }
 
