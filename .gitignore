@@ -64,3 +64,8 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 .idea
+repo/com/flyang/common/plugin/1.1.1.2019_beta_01/plugin-1.1.1.2019_beta_01-sources.jar
+repo/com/flyang/common/plugin/1.1.1.2019_beta_01
+repo/com/flyang/common/plugin/1.1.1.2019_beta_01/plugin-1.1.1.2019_beta_01-sources.jar.md5
+plugin/build.gradle
+plugin/build.gradle

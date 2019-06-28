@@ -10,9 +10,7 @@ import org.gradle.api.initialization.dsl.ScriptHandler
 import org.gradle.api.plugins.ExtraPropertiesExtension
 
 /**
- * @author yangfei.cao
- * @ClassName RouterPlugin
- * @date 2019/4/26
+ * @author yangfei.cao* @ClassName RouterPlugin* @date 2019/4/26
  * ------------- Description -------------
  * 插件入口
  */
@@ -22,7 +20,6 @@ class RouterPlugin implements Plugin<Project> {
     String apiVersion = "1.1.1.2019_beta_01"
     String annotationVersion = "1.1.1.2019_beta_01"
     String complierVersion = "1.1.1.2019_beta_01"
-    String aopVersion = "1.1.1.2019_beta_01"
 
     String androidBuildGradleVersion
 
@@ -88,23 +85,18 @@ class RouterPlugin implements Plugin<Project> {
             if (ext.has("annotationVersion")) {
                 annotationVersion = ext.get("annotationVersion")
             }
-            if (ext.has("aopVersion")) {
-                aopVersion = ext.get("aopVersion")
-            }
             if (ext.has("complierVersion")) {
                 complierVersion = ext.get("complierVersion")
             }
+
 
             //本地
             project.dependencies.add(compileConf,
                     "com.flyang.common:api:${apiVersion}")
             project.dependencies.add(compileConf,
                     "com.flyang.common:annotation:${annotationVersion}")
-            project.dependencies.add(compileConf,
-                    "com.flyang.common:aop:${aopVersion}")
             project.dependencies.add(aptConf,
-                    "com.flyang.common:complier:${complierVersion}")
-
+                    "com.flyang.common:complier:${complierVersion}@jar")
         }
 
         def android = project.extensions.findByName("android")

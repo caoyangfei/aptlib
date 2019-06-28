@@ -49,8 +49,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     implementation 'org.aspectj:aspectjrt:1.8.14'
 
-    implementation project(':annotation')
     implementation dep.util
+    /********大坑，使用线上依赖不然使用时依赖失败，还有上边配置路径，nexus 缓存坑死我了*******/
+    implementation dep.annotation
 }
 
 //  解决build警告：编码GBK的不可映射字符
@@ -58,7 +59,7 @@ tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
-def version = "1.1.1.2019_beta_01"
+def version = "1.2.1.2019_beta_01"
 
 uploadArchives {
     repositories {
