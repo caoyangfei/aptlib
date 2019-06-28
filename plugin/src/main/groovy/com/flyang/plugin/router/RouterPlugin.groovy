@@ -19,10 +19,10 @@ import org.gradle.api.plugins.ExtraPropertiesExtension
 class RouterPlugin implements Plugin<Project> {
     static final String APT_OPTION_NAME = "moduleName"
 
-    String apiVersion = "1.1.1.2019_01"
-    String annotationVersion = "1.1.1.2019_01"
-    String complierVersion = "1.1.1.2019_01"
-    String aopVersion = "1.1.1.2019_01"
+    String apiVersion = "1.1.1.2019_beta_01"
+    String annotationVersion = "1.1.1.2019_beta_01"
+    String complierVersion = "1.1.1.2019_beta_01"
+    String aopVersion = "1.1.1.2019_beta_01"
 
     String androidBuildGradleVersion
 
@@ -95,22 +95,16 @@ class RouterPlugin implements Plugin<Project> {
                 complierVersion = ext.get("complierVersion")
             }
 
-//            project.dependencies.add(compileConf,
-//                    "com.flyang.common:api:${apiVersion}")
-//            project.dependencies.add(compileConf,
-//                    "com.flyang.common:annotation:${annotationVersion}")
-//            project.dependencies.add(aptConf,
-//                    "com.flyang.common:complier:${complierVersion}")
-
-            //GitHub
+            //本地
             project.dependencies.add(compileConf,
-                    "com.github.caoyangfei.aptlib:api:${apiVersion}")
+                    "com.flyang.common:api:${apiVersion}")
             project.dependencies.add(compileConf,
-                    "com.github.caoyangfei.aptlib:annotation:${annotationVersion}")
+                    "com.flyang.common:annotation:${annotationVersion}")
             project.dependencies.add(compileConf,
-                    "com.github.caoyangfei.aptlib:aop:${aopVersion}")
+                    "com.flyang.common:aop:${aopVersion}")
             project.dependencies.add(aptConf,
-                    "com.github.caoyangfei.aptlib:complier:${complierVersion}")
+                    "com.flyang.common:complier:${complierVersion}")
+
         }
 
         def android = project.extensions.findByName("android")
