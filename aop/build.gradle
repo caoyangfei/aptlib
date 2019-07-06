@@ -29,6 +29,38 @@ android {
 
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    //  解决build警告：编码GBK的不可映射字符
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+    task javadoc(type: Javadoc) {
+        failOnError false
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+    artifacts {
+        archives javadocJar
+        archives sourcesJar
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -52,11 +84,6 @@ dependencies {
     implementation dep.util
     /********大坑，使用线上依赖不然使用时依赖失败，还有上边配置路径，nexus 缓存坑死我了*******/
     implementation dep.annotation
-}
-
-//  解决build警告：编码GBK的不可映射字符
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
 }
 
 def version = "1.2.1.2019_beta_01"
