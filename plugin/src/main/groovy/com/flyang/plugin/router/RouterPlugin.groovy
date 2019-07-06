@@ -17,9 +17,9 @@ import org.gradle.api.plugins.ExtraPropertiesExtension
 class RouterPlugin implements Plugin<Project> {
     static final String APT_OPTION_NAME = "moduleName"
 
-    String apiVersion = "1.1.1.2019_beta_01"
-    String annotationVersion = "1.1.1.2019_beta_01"
-    String complierVersion = "1.1.1.2019_beta_01"
+    String apiVersion = "2.1.1.2019_beta_01"
+    String annotationVersion = "2.1.1.2019_beta_01"
+    String complierVersion = "2.1.1.2019_beta_01"
 
     String androidBuildGradleVersion
 

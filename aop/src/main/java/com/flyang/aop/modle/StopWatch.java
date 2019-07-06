@@ -1,7 +1,11 @@
 package com.flyang.aop.modle;
 
 /**
- * Created by Tony Shen on 16/3/22.
+ * @author caoyangfei
+ * @ClassName StopWatch
+ * @date 2019/7/6
+ * ------------- Description -------------
+ * 时间追踪
  */
 public class StopWatch {
 
@@ -34,6 +38,7 @@ public class StopWatch {
 
     /**
      * 返回花费的时间，单位是纳秒
+     *
      * @return
      */
     public long getElapsedTime() {

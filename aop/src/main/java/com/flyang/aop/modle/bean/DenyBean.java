@@ -3,10 +3,12 @@ package com.flyang.aop.modle.bean;
 import java.util.List;
 
 /**
- * Created by mq on 2018/3/28 下午5:19
- * mqcoder90@gmail.com
+ * @author caoyangfei
+ * @ClassName DenyBean
+ * @date 2019/7/6
+ * ------------- Description -------------
+ * 权限返回信息
  */
-
 public class DenyBean {
 
     private int requestCode;
