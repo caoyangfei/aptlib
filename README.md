@@ -61,16 +61,83 @@
      
      `def android = project.extensions.findByName("android")`  只有当app项目依赖的时候，才会把路由对象注入进AptHub
      
-     [注入主要代码](.aptlib/plugin/src/main/groovy/com/flyang/plugin/router/asm/IMethodVisitor.groovy)
+     [注入主要代码](./plugin/src/main/groovy/com/flyang/plugin/router/asm/IMethodVisitor.groovy)
      
+## 4. Deploy(配置)     
+
+1.gradle 根目录
      
+     buildscript {
+     repositories {
+           maven {
+               url("http://127.0.0.1:8081/repository/basic_beta/")
+            }
+           google()
+           mavenCentral()
+           jcenter()
+       }
+       dependencies {
+           classpath 'com.android.tools.build:gradle:3.3.1'
+           classpath 'com.flyang.common:plugin:2.1.1.2019_beta_01'
+           // NOTE: Do not place your application dependencies here; they belong
+           // in the individual module build.gradle files
+       }
+        apply from: 'config.gradle'
+     }
+     
+ 配置版本   
 
+    ext {
+            apiVersion = "2.1.1.2019_beta_01"
+            annotationVersion = "2.1.1.2019_beta_01"
+            complierVersion = "2.1.1.2019_beta_01"
+        }
 
+2.gradle moudle目录
 
+    import com.flyang.plugin.aspectj.AspectjPlugin
+    import com.flyang.plugin.router.RouterPlugin
+    import com.flyang.plugin.inject.InjectPlugin
+    
+    apply plugin: AspectjPlugin
+    apply plugin: RouterPlugin
+    apply plugin: InjectPlugin
+    
+   说明：如果只单使用路由，只配置路由插件即可，如果还用切片配置AspectjPlugin和 
+   
+    api 'com.flyang.common:aop:2.1.1.2019_beta_01'
 
+ 
+## 4. Warn(提醒)   
+   目前还在开发中，还不是完善框架，固还未在jitpack发布完善版本，所有的使用目前只是用的搭建的本地nexus
+   
+   
+## 分包构想：
 
+- basiclib
+    
+        1.basic
+        2.util
+    
+- aptlib
 
+        1.annotaton
+        2.aop
+        3.api
+        4.complier
+        
+- vielib
 
+        1. 基础控件（侧滑关闭加载activity，动画，刷新控件，自动换行布局等）
+           
+        
+- netlib
+
+        1.imageloader
+        2.network
+    
+    其中util基本上全局都依赖，降低其他部分耦合度
+   
 
 
 
