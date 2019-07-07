@@ -45,6 +45,7 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 public class GenerateMethodViewClass implements GenerateClass {
 
     private static final ClassName VIEW = ClassName.get("android.view", "View");
+    public static final String CLASS_JAVA_DOC = "注解获取控件和点击事件\n";
 
     private RoundEnvironment roundEnvironment;
     private ProcessingEnvironment processingEnvironment;
@@ -145,7 +146,8 @@ public class GenerateMethodViewClass implements GenerateClass {
                     .addField(FieldSpec.builder(TypeName.get(typeElement.asType()), "target", Modifier.PROTECTED).build())
                     .addTypeVariable(TypeVariableName.get("T", TypeName.get(typeElement.asType()))) // 添加泛型<T extends MainActivity>
                     .addMethod(bindViewMethod.build())
-                    .addMethod(unBindViewMethod.build());
+                    .addMethod(unBindViewMethod.build())
+                    .addJavadoc(CLASS_JAVA_DOC);
 
             //获取包名
             String packageName = getPackage(typeElement).getQualifiedName().toString();
