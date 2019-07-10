@@ -15,6 +15,7 @@ import com.flyang.annotation.apt.OnClick;
 import com.flyang.annotation.apt.Router;
 import com.flyang.api.bind.FacadeBind;
 import com.flyang.api.router.IntentRouter;
+import com.flyang.util.data.ReflectUtils;
 
 @Router({"moudleTest","router://filter/module1"})
 public class TestActivity extends Activity {
@@ -26,6 +27,10 @@ public class TestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moudle_test);
         FacadeBind.bind(this);
+
+        ReflectUtils call = ReflectUtils.on("com.flyang.factory.MoudleInstanceFactory").call("create", TestPresenter.class);
+        TestPresenter testPresenter = call.get();
+        testPresenter.setString();
     }
 
     @OnClick(value = "btn_click2")

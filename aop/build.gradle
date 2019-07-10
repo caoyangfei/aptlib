@@ -86,7 +86,7 @@ dependencies {
     implementation dep.annotation
 }
 
-def version = "2.1.1.2019_beta_01"
+def version = "2.1.1.2019_beta_02"
 
 uploadArchives {
     repositories {

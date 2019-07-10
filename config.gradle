@@ -10,7 +10,7 @@ ext {
 
 
     utilVersion = "2.1.1.2019_beta_01"
-    annotationVersion = "2.1.1.2019_beta_01"
+    annotationVersion = "2.1.1.2019_beta_03"
 
     //GitHub
 //    dep = [

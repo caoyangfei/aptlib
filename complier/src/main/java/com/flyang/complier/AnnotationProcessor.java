@@ -1,6 +1,7 @@
 package com.flyang.complier;
 
 import com.flyang.complier.processor.InjectParamProcessor;
+import com.flyang.complier.processor.InstanceFactoryProcessor;
 import com.flyang.complier.processor.InterceptorProcessor;
 import com.flyang.complier.processor.MethodViewProcessor;
 import com.flyang.complier.processor.RouterProcessor;
@@ -36,6 +37,7 @@ public class AnnotationProcessor extends AbstractProcessor {
     private InterceptorProcessor interceptorProcessor;
     private InjectParamProcessor injectParamProcessor;
     private MethodViewProcessor methodViewProcessor;
+    private InstanceFactoryProcessor instanceFactoryProcessor;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
@@ -45,15 +47,17 @@ public class AnnotationProcessor extends AbstractProcessor {
         routerProcessor = new RouterProcessor(processingEnvironment);
         interceptorProcessor = new InterceptorProcessor(processingEnvironment);
         injectParamProcessor = new InjectParamProcessor(processingEnvironment);
+        instanceFactoryProcessor = new InstanceFactoryProcessor(processingEnvironment);
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-        if (set.size()>0) {
+        if (set.size() > 0) {
             methodViewProcessor.process(roundEnvironment);
             routerProcessor.process(roundEnvironment);
             interceptorProcessor.process(roundEnvironment);
             injectParamProcessor.process(roundEnvironment);
+            instanceFactoryProcessor.process(roundEnvironment);
         }
         return true;
     }
@@ -66,8 +70,10 @@ public class AnnotationProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = methodViewProcessor.getSupportedAnnotationTypes();
+        types.addAll(routerProcessor.getSupportedAnnotationTypes());
         types.addAll(interceptorProcessor.getSupportedAnnotationTypes());
         types.addAll(injectParamProcessor.getSupportedAnnotationTypes());
+        types.addAll(instanceFactoryProcessor.getSupportedAnnotationTypes());
         return types;
     }
 }

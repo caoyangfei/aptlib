@@ -26,7 +26,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
 import static com.flyang.complier.Consts.ACTIVITY_FULL_NAME;
-import static com.flyang.complier.Consts.APT_PACKAGE_NAME;
+import static com.flyang.complier.Consts.ROUTER_PACKAGE_NAME;
 import static com.flyang.complier.Consts.FRAGMENT_FULL_NAME;
 import static com.flyang.complier.Consts.FRAGMENT_V4_FULL_NAME;
 import static com.flyang.complier.Consts.OPTION_MODULE_NAME;
@@ -135,7 +135,7 @@ public class GenerateRouterClass implements GenerateClass {
                 .addJavadoc(CLASS_ROUTER_JAVA_DOC)
                 .build();
         try {
-            JavaFile.builder(APT_PACKAGE_NAME, type).build().writeTo(mFiler);
+            JavaFile.builder(ROUTER_PACKAGE_NAME, type).build().writeTo(mFiler);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -186,7 +186,7 @@ public class GenerateRouterClass implements GenerateClass {
                 .addJavadoc(CLASS_INTERCEPTOR_JAVA_DOC)
                 .build();
         try {
-            JavaFile.builder(APT_PACKAGE_NAME, injectClass).build().writeTo(mFiler);
+            JavaFile.builder(ROUTER_PACKAGE_NAME, injectClass).build().writeTo(mFiler);
         } catch (IOException e) {
             e.printStackTrace();
         }
