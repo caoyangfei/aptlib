@@ -10,12 +10,12 @@ import java.lang.annotation.Target;
  * @ClassName Controller
  * @date 2019/6/29
  * ------------- Description -------------
- * 控制器 P层
+ * 控制器 P层 持有activity或fragment实例
+ * <p>
+ * 注解在变量上
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Presenter {
-
-    Class[] value();
 
 }

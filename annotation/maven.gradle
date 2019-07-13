@@ -15,7 +15,7 @@ artifacts {
     archives sourcesJar
 }
 
-def version = "2.1.1.2019_beta_03"
+def version = "2.1.1.2019_beta_05"
 
 uploadArchives {
     repositories {

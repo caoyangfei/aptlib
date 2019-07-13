@@ -10,12 +10,12 @@ import java.lang.annotation.Target;
  * @ClassName Controller
  * @date 2019/6/29
  * ------------- Description -------------
- * 注解管理器
+ * 注解管理器持有activity或fragment生命周期
+ * <p>
+ * 注解在变量上
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Controller {
-
-    Class[] value();
 
 }

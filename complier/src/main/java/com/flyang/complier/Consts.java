@@ -21,5 +21,4 @@ public class Consts {
     public static final String FACTORY_PACKAGE_NAME = "com.flyang.factory";
 
     public static final ClassName UNBINDER = ClassName.get("com.flyang.api.bind", "UnBinder");
-    public static final ClassName IFACTORY = ClassName.get("com.flyang.api", "IFactory");
 }

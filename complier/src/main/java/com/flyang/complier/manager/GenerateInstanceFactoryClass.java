@@ -25,7 +25,9 @@ import javax.lang.model.util.ElementFilter;
 import static com.flyang.complier.Consts.FACTORY_PACKAGE_NAME;
 import static com.flyang.complier.Consts.OPTION_MODULE_NAME;
 import static javax.lang.model.element.Modifier.ABSTRACT;
+import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
+import static javax.lang.model.element.Modifier.STATIC;
 
 /**
  * @author yangfei.cao
@@ -92,9 +94,7 @@ public class GenerateInstanceFactoryClass implements GenerateClass {
         MethodSpec.Builder methodCreate = MethodSpec.methodBuilder("create")
                 .addJavadoc(METHOD_JAVA_DOC)
                 .returns(Object.class)
-                .addModifiers(PUBLIC)
-                .addException(IllegalAccessException.class)
-                .addException(InstantiationException.class)
+                .addModifiers(PUBLIC, STATIC)
                 .addParameter(Class.class, "mClass");
 
         List<ClassName> mList = new ArrayList<>();
@@ -107,13 +107,13 @@ public class GenerateInstanceFactoryClass implements GenerateClass {
             mList.add(currentType);
             blockBuilder.addStatement("case $S: return  new $T()", currentType.simpleName(), currentType);//初始化Presenter
         }
-        blockBuilder.addStatement("default: return mClass.newInstance()");
+        blockBuilder.addStatement("default: return null");
         blockBuilder.endControlFlow();
         methodCreate.addCode(blockBuilder.build());
 
         //生成类
         TypeSpec type = TypeSpec.classBuilder(capitalize(moduleName) + INSTANCE_FACTORY)
-                .addModifiers(PUBLIC)
+                .addModifiers(PUBLIC, FINAL)
                 .addMethod(methodCreate.build())
                 .addJavadoc(CLASS_JAVA_DOC)
                 .build();

@@ -89,7 +89,6 @@ class RouterPlugin implements Plugin<Project> {
                 complierVersion = ext.get("complierVersion")
             }
 
-
             //本地
             project.dependencies.add(compileConf,
                     "com.flyang.common:api:${apiVersion}")
