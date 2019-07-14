@@ -30,11 +30,11 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 import static javax.lang.model.element.Modifier.STATIC;
 
 /**
- * @author yangfei.cao
- * @ClassName aptlib_demo
- * @date 2019/4/26
+ * @author caoyangfei
+ * @ClassName GenerateInstanceFactoryClass
+ * @date 2019/7/14
  * ------------- Description -------------
- * 工厂生成
+ * 生成InstanceFactory
  */
 public class GenerateInstanceFactoryClass implements GenerateClass {
 

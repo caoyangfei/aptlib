@@ -10,7 +10,9 @@ import org.gradle.api.initialization.dsl.ScriptHandler
 import org.gradle.api.plugins.ExtraPropertiesExtension
 
 /**
- * @author yangfei.cao* @ClassName RouterPlugin* @date 2019/4/26
+ * @author yangfei.cao
+ * @ClassName RouterPlugin
+ * @date 2019/4/26
  * ------------- Description -------------
  * 插件入口
  */

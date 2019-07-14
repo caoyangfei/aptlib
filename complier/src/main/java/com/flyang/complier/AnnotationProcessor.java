@@ -1,5 +1,6 @@
 package com.flyang.complier;
 
+import com.flyang.complier.processor.ContractFactoryProcessor;
 import com.flyang.complier.processor.InjectParamProcessor;
 import com.flyang.complier.processor.InstanceFactoryProcessor;
 import com.flyang.complier.processor.InterceptorProcessor;
@@ -38,6 +39,7 @@ public class AnnotationProcessor extends AbstractProcessor {
     private InjectParamProcessor injectParamProcessor;
     private MethodViewProcessor methodViewProcessor;
     private InstanceFactoryProcessor instanceFactoryProcessor;
+    private ContractFactoryProcessor contractFactoryProcessor;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
@@ -48,6 +50,7 @@ public class AnnotationProcessor extends AbstractProcessor {
         interceptorProcessor = new InterceptorProcessor(processingEnvironment);
         injectParamProcessor = new InjectParamProcessor(processingEnvironment);
         instanceFactoryProcessor = new InstanceFactoryProcessor(processingEnvironment);
+        contractFactoryProcessor = new ContractFactoryProcessor(processingEnvironment);
     }
 
     @Override
@@ -58,6 +61,7 @@ public class AnnotationProcessor extends AbstractProcessor {
             interceptorProcessor.process(roundEnvironment);
             injectParamProcessor.process(roundEnvironment);
             instanceFactoryProcessor.process(roundEnvironment);
+            contractFactoryProcessor.process(roundEnvironment);
         }
         return true;
     }
@@ -74,6 +78,7 @@ public class AnnotationProcessor extends AbstractProcessor {
         types.addAll(interceptorProcessor.getSupportedAnnotationTypes());
         types.addAll(injectParamProcessor.getSupportedAnnotationTypes());
         types.addAll(instanceFactoryProcessor.getSupportedAnnotationTypes());
+        types.addAll(contractFactoryProcessor.getSupportedAnnotationTypes());
         return types;
     }
 }
