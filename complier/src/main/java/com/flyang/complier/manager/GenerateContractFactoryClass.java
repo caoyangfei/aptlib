@@ -10,7 +10,6 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -73,12 +72,7 @@ public class GenerateContractFactoryClass implements GenerateClass {
     @Override
     public void generateFile() {
         addField();
-        if (mModuleName != null) {
-            String validModuleName = mModuleName.replace(".", "_").replace("-", "_");
-            generateInterceptors(validModuleName);
-        } else {
-            throw new RuntimeException(String.format("No option `%s` passed to Interceptor annotation processor.", OPTION_MODULE_NAME));
-        }
+        generateInterceptors();
     }
 
     public void addField() {
@@ -97,10 +91,8 @@ public class GenerateContractFactoryClass implements GenerateClass {
 
     /**
      * 工厂类
-     *
-     * @param moduleName
      */
-    private void generateInterceptors(String moduleName) {
+    private void generateInterceptors() {
         for (TypeElement element : typeElements) {
             //要生成类名
             String CLASS_NAME = element.getSimpleName().toString() + CONTRACT_FACTORY;
@@ -207,6 +199,11 @@ public class GenerateContractFactoryClass implements GenerateClass {
         if (interfaces == null) return;
         for (TypeMirror typeMirror : interfaces) {
             TypeElement typeElement = asTypeElement(typeMirror);
+            //找出所有继承的
+            List<? extends TypeMirror> childInterfaces = typeElement.getInterfaces();
+            if (childInterfaces != null) {
+                getSuperClass(childInterfaces, methodType);
+            }
             if (setMap(methodType, typeElement)) return;
         }
     }
@@ -232,26 +229,6 @@ public class GenerateContractFactoryClass implements GenerateClass {
             }
         }
         return false;
-    }
-
-    //递归查询所有继承的类
-    private void getSuperClass(Class<?> aClass, Map<String, ClassName> methodType) {
-        Logger.error("aClass" + aClass.getSimpleName());
-        if (aClass == null) return;
-        Method[] declaredMethods = aClass.getDeclaredMethods();
-        ContractFactory annotation = aClass.getAnnotation(ContractFactory.class);
-        if (annotation != null) {
-            Class<?>[] entites = annotation.entites();
-            for (int i = 0; i < declaredMethods.length; i++) {
-                if (entites.length > i) {
-                    methodType.put(declaredMethods[i].getName(), ClassName.get(entites[i]));
-                } else {
-                    methodType.put(declaredMethods[i].getName(), null);
-                }
-            }
-        }
-        Class<?> superclass = aClass.getSuperclass();
-        getSuperClass(superclass, methodType);
     }
 
     /**
