@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.flyang.annotation.apt.BindView;
+import com.flyang.annotation.apt.InjectParam;
 import com.flyang.annotation.apt.OnClick;
 import com.flyang.annotation.apt.Router;
 import com.flyang.api.bind.FacadeBind;
@@ -20,6 +21,7 @@ import com.flyang.api.router.RouteCallback;
 import com.flyang.api.router.response.RouteStatus;
 import com.flyang.api.router.template.RouteTable;
 import com.flyang.demo.router.DynamicActivity;
+import com.flyang.demo.router.HelloService;
 import com.flyang.demo.router.WebActivity;
 
 import java.util.Map;
@@ -44,11 +46,15 @@ public class RouterActivity extends Activity {
 
     private String uri;
 
+    @InjectParam(key = "HelloServiceImpl")
+    HelloService helloService;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_router);
         FacadeBind.bind(this);
+        IntentRouter.injectParams(this);
 
         edit_route.addTextChangedListener(new TextWatcher() {
             @Override
@@ -91,6 +97,7 @@ public class RouterActivity extends Activity {
                 }).go(this);
                 break;
             case R.id.btn1:
+                helloService.sayHello("测试");
                 IntentRouter.build(btn1.getText().toString()).go(this);
                 break;
             case R.id.btn2:

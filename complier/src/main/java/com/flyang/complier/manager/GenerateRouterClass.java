@@ -26,10 +26,11 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
 import static com.flyang.complier.Consts.ACTIVITY_FULL_NAME;
-import static com.flyang.complier.Consts.ROUTER_PACKAGE_NAME;
 import static com.flyang.complier.Consts.FRAGMENT_FULL_NAME;
 import static com.flyang.complier.Consts.FRAGMENT_V4_FULL_NAME;
+import static com.flyang.complier.Consts.IPROVIDER;
 import static com.flyang.complier.Consts.OPTION_MODULE_NAME;
+import static com.flyang.complier.Consts.ROUTER_PACKAGE_NAME;
 
 /**
  * @author yangfei.cao
@@ -200,8 +201,8 @@ public class GenerateRouterClass implements GenerateClass {
      */
     private boolean validateClass(TypeElement typeElement) {
         if (!isSubtype(typeElement, ACTIVITY_FULL_NAME) && !isSubtype(typeElement, FRAGMENT_V4_FULL_NAME)
-                && !isSubtype(typeElement, FRAGMENT_FULL_NAME)) {
-            Logger.error(typeElement, String.format("%s is not a subclass of Activity or Fragment.",
+                && !isSubtype(typeElement, FRAGMENT_FULL_NAME) && !isSubtype(typeElement, IPROVIDER)) {
+            Logger.error(typeElement, String.format("%s is not a subclass of Activity or Fragment or IProvider.",
                     typeElement.getSimpleName().toString()));
             return false;
         }

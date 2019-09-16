@@ -32,6 +32,7 @@ import javax.lang.model.type.TypeMirror;
 import static com.flyang.complier.Consts.ACTIVITY_FULL_NAME;
 import static com.flyang.complier.Consts.FRAGMENT_FULL_NAME;
 import static com.flyang.complier.Consts.FRAGMENT_V4_FULL_NAME;
+import static com.flyang.complier.Consts.IPROVIDER;
 
 /**
  * @author yangfei.cao
@@ -44,6 +45,7 @@ public class GenerateInjectParamClass implements GenerateClass {
 
     private static class TypeUtil {
         static final ClassName ParamInjector = ClassName.get("com.flyang.api.router.template", "ParamInjector");
+        static final ClassName IntentRouter = ClassName.get("com.flyang.api.router", "IntentRouter");
     }
 
     public static final String PARAM_CLASS_SUFFIX = "$$IntentRouter$$ParamInjector";
@@ -146,51 +148,62 @@ public class GenerateInjectParamClass implements GenerateClass {
                 String key = isEmpty(injectParam.key()) ? fieldName : injectParam.key();
 
                 StringBuilder statement = new StringBuilder();
-                if (param.getModifiers().contains(Modifier.PRIVATE)) {
-                    Logger.warn(param, String.format(
-                            "Found private field: %s, please remove 'private' modifier for a better performance.", fieldName));
-
-                    String reflectName = "field_" + fieldName;
-
-                    injectMethodBuilder.beginControlFlow("try")
-                            .addStatement("$T $L = $T.class.getDeclaredField($S)",
-                                    ClassName.get(Field.class), reflectName, ClassName.get(parent), fieldName)
-                            .addStatement("$L.setAccessible(true)", reflectName);
-
+                if (isSubtype(param, IPROVIDER)) {
                     Object[] args;
-                    statement.append("$L.set($L, $L.get")
-                            .append(getAccessorType(param.asType()))
-                            .append("(")
-                            .append("$S");
-                    if (supportDefaultValue(param.asType())) {
-                        statement.append(", ($T) $L.get($L)");
-                        args = new Object[]{reflectName, TARGET, EXTRAS, key,
-                                ClassName.get(param.asType()), reflectName, TARGET};
-                    } else {
-                        args = new Object[]{reflectName, TARGET, EXTRAS, key};
-                    }
-                    statement.append("))");
-
-                    injectMethodBuilder.addStatement(statement.toString(), args)
-                            .nextControlFlow("catch ($T e)", Exception.class)
-                            .addStatement("e.printStackTrace()")
-                            .endControlFlow();
-                } else {
-                    Object[] args;
-                    statement.append("$L.$L = ($T) $L.get")
-                            .append(getAccessorType(param.asType())).append("(")
-                            .append("$S");
-                    // , target.field
-                    if (supportDefaultValue(param.asType())) {
-                        statement.append(", $L.$L");
-                        args = new Object[]{TARGET, fieldName, ClassName.get(param.asType()), EXTRAS, key, TARGET, fieldName};
-                    } else {
-                        args = new Object[]{TARGET, fieldName, ClassName.get(param.asType()), EXTRAS, key};
-                    }
-                    statement.append(")");
+                    statement.append("$L.$L = ($T) $T.build")
+                            .append("($S)")
+                            .append(".navigation()");
+                    args = new Object[]{TARGET, fieldName, ClassName.get(param.asType()), TypeUtil.IntentRouter, key};
 
                     injectMethodBuilder.addStatement(statement.toString(), args);
+                } else {
+                    if (param.getModifiers().contains(Modifier.PRIVATE)) {
+                        Logger.warn(param, String.format(
+                                "Found private field: %s, please remove 'private' modifier for a better performance.", fieldName));
+
+                        String reflectName = "field_" + fieldName;
+
+                        injectMethodBuilder.beginControlFlow("try")
+                                .addStatement("$T $L = $T.class.getDeclaredField($S)",
+                                        ClassName.get(Field.class), reflectName, ClassName.get(parent), fieldName)
+                                .addStatement("$L.setAccessible(true)", reflectName);
+
+                        Object[] args;
+                        statement.append("$L.set($L, $L.get")
+                                .append(getAccessorType(param.asType()))
+                                .append("(")
+                                .append("$S");
+                        if (supportDefaultValue(param.asType())) {
+                            statement.append(", ($T) $L.get($L)");
+                            args = new Object[]{reflectName, TARGET, EXTRAS, key,
+                                    ClassName.get(param.asType()), reflectName, TARGET};
+                        } else {
+                            args = new Object[]{reflectName, TARGET, EXTRAS, key};
+                        }
+                        statement.append("))");
+
+                        injectMethodBuilder.addStatement(statement.toString(), args)
+                                .nextControlFlow("catch ($T e)", Exception.class)
+                                .addStatement("e.printStackTrace()")
+                                .endControlFlow();
+                    } else {
+                        Object[] args;
+                        statement.append("$L.$L = ($T) $L.get")
+                                .append(getAccessorType(param.asType())).append("(")
+                                .append("$S");
+                        // , target.field
+                        if (supportDefaultValue(param.asType())) {
+                            statement.append(", $L.$L");
+                            args = new Object[]{TARGET, fieldName, ClassName.get(param.asType()), EXTRAS, key, TARGET, fieldName};
+                        } else {
+                            args = new Object[]{TARGET, fieldName, ClassName.get(param.asType()), EXTRAS, key};
+                        }
+                        statement.append(")");
+
+                        injectMethodBuilder.addStatement(statement.toString(), args);
+                    }
                 }
+
             }
 
             TypeSpec typeSpec = TypeSpec.classBuilder(fileName)

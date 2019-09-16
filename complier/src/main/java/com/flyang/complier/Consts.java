@@ -16,6 +16,7 @@ public class Consts {
     public static final String ACTIVITY_FULL_NAME = "android.app.Activity";
     public static final String FRAGMENT_FULL_NAME = "android.app.Fragment";
     public static final String FRAGMENT_V4_FULL_NAME = "android.support.v4.app.Fragment";
+    public static final String IPROVIDER = "com.flyang.api.router.IProvider";
     public static final String VIEW_TYPE = "android.view.View";
     public static final String ROUTER_PACKAGE_NAME = "com.flyang.router";
     public static final String FACTORY_PACKAGE_NAME = "com.flyang.factory";

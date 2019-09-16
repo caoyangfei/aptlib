@@ -19,6 +19,7 @@ import com.flyang.api.router.chain.interceptor.IntentValidator;
 import com.flyang.api.router.chain.interceptor.RouteInterceptor;
 import com.flyang.api.router.response.RouteResponse;
 import com.flyang.api.router.response.RouteStatus;
+import com.flyang.util.app.ApplicationUtils;
 import com.flyang.util.log.LogUtils;
 
 import java.util.ArrayList;
@@ -156,4 +157,31 @@ final class RealRouter extends AbsRouter {
             }
         }
     }
+
+    /**
+     * 反射获取接口实现对象
+     *
+     * @return
+     */
+    public Object navigation() {
+        String path = mRouteRequest.getUri().toString();
+        if (!AptHub.routeTable.isEmpty() && AptHub.routeTable.containsKey(path)) {
+            Class<?> aClass = AptHub.routeTable.get(path);
+            try {
+                IProvider provider = AptHub.providers.get(aClass);
+                if (provider == null) {
+                    provider = (IProvider) aClass.getConstructor().newInstance();
+                    provider.init(ApplicationUtils.getApp());
+                    AptHub.providers.put(aClass, provider);
+                }
+                return provider;
+            } catch (Exception e) {
+                LogUtils.e("get intetface failed.", e);
+            }
+        } else {
+            LogUtils.e("没有找到实现接口");
+        }
+        return null;
+    }
+
 }

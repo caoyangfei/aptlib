@@ -130,4 +130,6 @@ public interface IRouter {
     void go(android.support.v4.app.Fragment fragment, RouteCallback callback);
 
     void go(android.support.v4.app.Fragment fragment);
+
+    Object navigation();
 }

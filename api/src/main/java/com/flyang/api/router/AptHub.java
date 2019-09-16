@@ -24,16 +24,19 @@ public final class AptHub {
     // 存储实现ParamInjector实体类 -> injectParams写入class
     private static Map<String, Class<ParamInjector>> injectors = new HashMap<>();
 
-    // 路由Uri -> Activity/Fragment
+    // 路由Uri -> Activity/Fragment/Service
     public final static Map<String, Class<?>> routeTable = new HashMap<>();
     // interceptor's name -> interceptor
     public final static Map<String, Class<? extends RouteInterceptor>> interceptorTable = new HashMap<>();
     // interceptor instance
     public final static Map<String, RouteInterceptor> interceptorInstances = new HashMap<>();
 
-    // Activity/Fragment -> 拦截器名字
+    // Activity/Fragment -> 拦截器名字，用来对应interceptorTable中拦截器
     // Note: 这里用LinkedHashMap保证有序
     public final static Map<Class<?>, String[]> targetInterceptorsTable = new LinkedHashMap<>();
+
+    // Cache provider 缓存接口
+    public static Map<Class, IProvider> providers = new HashMap<>();
 
     /**
      * 自动注入参数
