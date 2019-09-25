@@ -20,11 +20,9 @@ ext {
 
     //GitHub
     utilVersion = "1.1.1.2019_02"
-    annotationVersion = "1.1.1.2019_01"
 
     dep = [
             util      : "com.github.caoyangfei:utillib:$utilVersion",
-            annotation: "com.github.caoyangfei.aptlib:annotation:$annotationVersion",
             gson      : "com.google.code.gson:gson:2.8.5",
     ]
 
