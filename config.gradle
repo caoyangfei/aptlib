@@ -8,23 +8,26 @@ ext {
     versionCode = 1
     versionName = "1.1.1.2019_beta_01"
 
+//    本地
+//    utilVersion = "2.1.1.2019_beta_01"
+//    annotationVersion = "2.1.1.2019_beta_06"
 
-    utilVersion = "2.1.1.2019_beta_01"
-    annotationVersion = "2.1.1.2019_beta_06"
-
-    //GitHub
 //    dep = [
-//            util      : "com.github.caoyangfei.basiclib:util:$utilVersion",
-//            gson      : "com.google.code.gson:gson:2.8.5",
+//            util: "com.flyang.common:util:$utilVersion",
+//            annotation      : "com.flyang.common:annotation:$annotationVersion",
+//            gson: "com.google.code.gson:gson:2.8.5",
 //    ]
 
-    //本地
-    dep = [
-            util: "com.flyang.common:util:$utilVersion",
-            annotation      : "com.flyang.common:annotation:$annotationVersion",
+    //GitHub
+    utilVersion = "1.1.1.2019_02"
+    annotationVersion = "1.1.1.2019_01"
 
-            gson: "com.google.code.gson:gson:2.8.5",
+    dep = [
+            util      : "com.github.caoyangfei:utillib:$utilVersion",
+            annotation: "com.github.caoyangfei.aptlib:annotation:$annotationVersion",
+            gson      : "com.google.code.gson:gson:2.8.5",
     ]
+
 }
 
 //./gradlew clean utilcode-lib:bintrayUpload

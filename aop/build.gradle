@@ -1,12 +1,12 @@
 import com.flyang.plugin.aspectj.AspectjPlugin
 
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+//apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: AspectjPlugin
 
-//apply plugin: 'com.github.dcendents.android-maven'
-//group='com.github.caoyangfei'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.caoyangfei'
 
 configurations {
     deployerJars
@@ -82,7 +82,8 @@ dependencies {
     implementation 'org.aspectj:aspectjrt:1.8.14'
     implementation dep.util
     /********大坑，使用线上依赖不然使用时依赖失败，还有上边配置路径，nexus 缓存坑死我了*******/
-    implementation dep.annotation
+//    implementation dep.annotation
+    implementation project(path: ':annotation')
 }
 
 def version = "2.1.1.2019_beta_02"

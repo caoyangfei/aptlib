@@ -1,7 +1,7 @@
-apply plugin: 'maven'
+//apply plugin: 'maven'
 
-//apply plugin: 'com.github.dcendents.android-maven'
-//group='com.github.caoyangfei'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.caoyangfei'
 
 //打包源代码
 task sourcesJar(type: Jar, dependsOn: classes) {

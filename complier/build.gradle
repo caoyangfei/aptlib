@@ -24,7 +24,8 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc4'
     implementation 'com.squareup:javapoet:1.11.1'
 
-    implementation dep.annotation
+//    implementation dep.annotation
+    implementation project(path: ':annotation')
 }
 
 
