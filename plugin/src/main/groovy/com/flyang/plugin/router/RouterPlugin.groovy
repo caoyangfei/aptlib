@@ -19,9 +19,10 @@ import org.gradle.api.plugins.ExtraPropertiesExtension
 class RouterPlugin implements Plugin<Project> {
     static final String APT_OPTION_NAME = "moduleName"
 
-    String apiVersion = "2.1.1.2019_beta_01"
-    String annotationVersion = "2.1.1.2019_beta_01"
-    String complierVersion = "2.1.1.2019_beta_01"
+    String apiVersion = "1.1.1.2019_04"
+    String annotationVersion = "1.1.1.2019_04"
+    String complierVersion = "1.1.1.2019_04"
+    boolean isNexus = false   //是否是本地nexus库，默认不是
 
     String androidBuildGradleVersion
 
@@ -81,6 +82,10 @@ class RouterPlugin implements Plugin<Project> {
             project.dependencies.add(aptConf, compilerProject)
         } else {
             ExtraPropertiesExtension ext = project.rootProject.ext
+
+            if (ext.has("isNexus")) {
+                isNexus = ext.get("isNexus")
+            }
             if (ext.has("apiVersion")) {
                 apiVersion = ext.get("apiVersion")
             }
@@ -91,13 +96,23 @@ class RouterPlugin implements Plugin<Project> {
                 complierVersion = ext.get("complierVersion")
             }
 
-            //本地
-            project.dependencies.add(compileConf,
-                    "com.flyang.common:api:${apiVersion}")
-            project.dependencies.add(compileConf,
-                    "com.flyang.common:annotation:${annotationVersion}")
-            project.dependencies.add(aptConf,
-                    "com.flyang.common:complier:${complierVersion}@jar")
+            if (isNexus) {
+                //本地
+                project.dependencies.add(compileConf,
+                        "com.flyang.common:api:${apiVersion}")
+                project.dependencies.add(compileConf,
+                        "com.flyang.common:annotation:${annotationVersion}")
+                project.dependencies.add(aptConf,
+                        "com.flyang.common:complier:${complierVersion}@jar")
+            } else {
+                //GitHub
+                project.dependencies.add(compileConf,
+                        "com.github.caoyangfei.aptlib:api:${apiVersion}")
+                project.dependencies.add(compileConf,
+                        "com.github.caoyangfei.aptlib:annotation:${annotationVersion}")
+                project.dependencies.add(aptConf,
+                        "com.github.caoyangfei.aptlib:complier:${complierVersion}@jar")
+            }
         }
 
         def android = project.extensions.findByName("android")
