@@ -13,7 +13,6 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-
 //  解决build警告：编码GBK的不可映射字符
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
@@ -24,6 +23,7 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc4'
     implementation 'com.squareup:javapoet:1.11.1'
 
+    //本地nexus库必须使用线上依赖
 //    implementation dep.annotation
     implementation project(path: ':annotation')
 }
