@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @ClassName InjectParam
  * @date 2019/4/24
  * ------------- Description -------------
- * 参数传递
+ * 路由参数传递
  */
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)

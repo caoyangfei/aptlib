@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @ClassName Interceptor
  * @date 2019/4/24
  * ------------- Description -------------
- * 拦截器
+ * 路由拦截器
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
