@@ -8,11 +8,11 @@ package com.flyang.api.router.response;
  * 响应结果状态
  */
 public enum RouteStatus {
-    PROCESSING,
-    SUCCEED,
-    INTERCEPTED,
-    NOT_FOUND,
-    FAILED;
+    PROCESSING,//初始
+    SUCCEED,//成功
+    INTERCEPTED,//拦截
+    NOT_FOUND,//没找到intent/fragment
+    FAILED;//失败
 
     public boolean isSuccessful() {
         return this == SUCCEED;
